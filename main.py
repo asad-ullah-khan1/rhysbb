@@ -44,27 +44,27 @@ def main():
             # Initialize conversation history
             conversation_history = []
 
-            # Provide user instructions or messages
-            st.write("You can ask questions about the CSV data in the text box below.")
-            user_question = st.text_input("Ask a question about your CSV:")
-            if user_question:
-                # Append user's question to conversation history
-                conversation_history.append(f"User: {user_question}")
+        # Provide user instructions or messages
+        st.write("You can ask questions about the CSV data in the text box below.")
+        user_question = st.text_input("Ask a question about your CSV:")
+        if user_question:
+            # Append user's question to conversation history
+            conversation_history.append(f"User: {user_question}")
 
-                with st.spinner(text="In progress..."):
-                    try:
-                        # Get chatbot's response
-                        response = agent.run("\n".join(conversation_history))
-                        
-                        # Replace commas with new lines in the chatbot's response
-                        response_with_newlines = response.replace(',', '\n')
-                        conversation_history.append(f"Chatbot: {response_with_newlines}")
+            with st.spinner(text="In progress..."):
+                try:
+                    # Get chatbot's response
+                    response = agent.run("\n".join(conversation_history))
+                    
+                    # Replace commas with new lines in the chatbot's response
+                    response_with_newlines = response.replace(',', '\n')
+                    conversation_history.append(f"Chatbot: {response_with_newlines}")
 
-                        # Display the conversation history
-                        st.write("\n\n".join(conversation_history))
+                    # Display the conversation history
+                    st.write("\n\n".join(conversation_history))
 
-                    except Exception as e:
-                        st.error(f"An error occurred: {str(e)}")
+                except Exception as e:
+                    st.error(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     main()
