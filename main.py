@@ -41,8 +41,8 @@ def main():
                 openai_api_key = st.secrets["OPENAI_API_KEY"]
                 agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=openai_api_key)
 
-            # Initialize conversation history
-            conversation_history = []
+        # Initialize conversation history
+        conversation_history = []
 
         # Provide user instructions or messages
         st.write("You can ask questions about the CSV data in the text box below.")
