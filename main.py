@@ -47,7 +47,6 @@ def main():
             # Provide user instructions or messages
             st.write("You can ask questions about the CSV data in the text box below.")
             user_question = st.text_input("Ask a question about your CSV:")
-
             if user_question:
                 # Append user's question to conversation history
                 conversation_history.append(f"User: {user_question}")
@@ -56,7 +55,10 @@ def main():
                     try:
                         # Get chatbot's response
                         response = agent.run("\n".join(conversation_history))
-                        conversation_history.append(f"Chatbot: {response.replace(',', '\n')}")
+                        
+                        # Replace commas with new lines in the chatbot's response
+                        response_with_newlines = response.replace(',', '\n')
+                        conversation_history.append(f"Chatbot: {response_with_newlines}")
 
                         # Display the conversation history
                         st.write("\n\n".join(conversation_history))
