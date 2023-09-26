@@ -41,13 +41,20 @@ def main():
             for selected_file in selected_files:
                 st.subheader(f"Viewing {os.path.basename(selected_file)}")
 
-                agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=st.secrets.OPENAI_API_KEY)
+                openai_api_key = st.secrets["OPENAI_API_KEY"]
+                agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=openai_api_key)
 
+                # Provide user instructions or messages
+                st.write("You can ask questions about the CSV data in the text box below.")
                 user_question = st.text_input("Ask a question about your CSV:", key="userQuestions")
 
                 if user_question:
                     with st.spinner(text="In progress..."):
-                        st.write(agent.run(user_question))
+                        try:
+                            response = agent.run(user_question)
+                            st.write(response)
+                        except Exception as e:
+                            st.error(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     main()
