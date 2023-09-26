@@ -57,7 +57,7 @@ def main():
                     response = agent.run("\n".join(conversation_history))
                     
                     # Replace commas with new lines in the chatbot's response
-                    response_with_newlines = response.replace(',', '\n')
+                    response_with_newlines = response.replace(',', '\n\n')
                     conversation_history.append(f"Chatbot: {response_with_newlines}")
 
                     # Display the conversation history
