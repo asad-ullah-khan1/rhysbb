@@ -59,12 +59,19 @@ def main():
                         response = agent.run("\n".join(conversation_history))
                         conversation_history.append(f"Chatbot: {response}")
 
-                        # Display the conversation history in a table
+                        # Display the conversation history with inner answers in tables
                         chatbot_responses = [line for line in conversation_history if line.startswith("Chatbot: ")]
                         if chatbot_responses:
-                            chatbot_data = [line.split("Chatbot: ")[1] for line in chatbot_responses]
-                            chatbot_df = pd.DataFrame({"Chatbot Response": chatbot_data})
-                            st.table(chatbot_df)
+                            for i, chatbot_response in enumerate(chatbot_responses):
+                                inner_answers = chatbot_response.split(" | ")
+                                if len(inner_answers) > 1:
+                                    inner_data = [answer.split(": ") for answer in inner_answers[1:]]
+                                    inner_df = pd.DataFrame(inner_data, columns=["Field", "Value"])
+                                    st.subheader(f"Chatbot Response {i + 1}")
+                                    st.table(inner_df)
+                                else:
+                                    st.write(chatbot_response)
+
                     except Exception as e:
                         st.error(f"An error occurred: {str(e)}")
 
