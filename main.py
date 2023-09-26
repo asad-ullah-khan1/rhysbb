@@ -43,7 +43,7 @@ def main():
 
                 agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=st.secrets.OPENAI_API_KEY)
 
-                user_question = st.text_input("Ask a question about your CSV: ")
+                user_question = st.text_input("Ask a question about your CSV:", key="userQuestions")
 
                 if user_question:
                     with st.spinner(text="In progress..."):
