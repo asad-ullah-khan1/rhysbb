@@ -47,17 +47,17 @@ def main():
                 # Generate a unique key for the text input widget
                 widget_key = f"userQuestions_{selected_file}"
 
-                # Provide user instructions or messages
-                st.write("You can ask questions about the CSV data in the text box below.")
-                user_question = st.text_input("Ask a question about your CSV:", key=widget_key)
+            # Provide user instructions or messages
+            st.write("You can ask questions about the CSV data in the text box below.")
+            user_question = st.text_input("Ask a question about your CSV:", key=widget_key)
 
-                if user_question:
-                    with st.spinner(text="In progress..."):
-                        try:
-                            response = agent.run(user_question)
-                            st.write(response)
-                        except Exception as e:
-                            st.error(f"An error occurred: {str(e)}")
+            if user_question:
+                with st.spinner(text="In progress..."):
+                    try:
+                        response = agent.run(user_question)
+                        st.write(response)
+                    except Exception as e:
+                        st.error(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     main()
