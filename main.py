@@ -41,27 +41,27 @@ def main():
                 openai_api_key = st.secrets["OPENAI_API_KEY"]
                 agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=openai_api_key)
 
-                # Initialize conversation history
-                conversation_history = []
+            # Initialize conversation history
+            conversation_history = []
 
-                # Provide user instructions or messages
-                st.write("You can ask questions about the CSV data in the text box below.")
-                user_question = st.text_input("Ask a question about your CSV:")
+            # Provide user instructions or messages
+            st.write("You can ask questions about the CSV data in the text box below.")
+            user_question = st.text_input("Ask a question about your CSV:")
 
-                if user_question:
-                    # Append user's question to conversation history
-                    conversation_history.append(f"User: {user_question}")
+            if user_question:
+                # Append user's question to conversation history
+                conversation_history.append(f"User: {user_question}")
 
-                    with st.spinner(text="In progress..."):
-                        try:
-                            # Get chatbot's response
-                            response = agent.run("\n".join(conversation_history))
-                            conversation_history.append(f"Chatbot: {response}")
+                with st.spinner(text="In progress..."):
+                    try:
+                        # Get chatbot's response
+                        response = agent.run("\n".join(conversation_history))
+                        conversation_history.append(f"Chatbot: {response}")
 
-                            # Display the conversation history
-                            st.write("\n\n".join(conversation_history))
-                        except Exception as e:
-                            st.error(f"An error occurred: {str(e)}")
+                        # Display the conversation history
+                        st.write("\n\n".join(conversation_history))
+                    except Exception as e:
+                        st.error(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
     main()
