@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import pandas as pd
 from langchain.agents import create_csv_agent
 from langchain.llms import OpenAI
 
@@ -58,8 +59,12 @@ def main():
                         response = agent.run("\n".join(conversation_history))
                         conversation_history.append(f"Chatbot: {response}")
 
-                        # Display the conversation history
-                        st.write("\n\n".join(conversation_history))
+                        # Display the conversation history in a table
+                        chatbot_responses = [line for line in conversation_history if line.startswith("Chatbot: ")]
+                        if chatbot_responses:
+                            chatbot_data = [line.split("Chatbot: ")[1] for line in chatbot_responses]
+                            chatbot_df = pd.DataFrame({"Chatbot Response": chatbot_data})
+                            st.table(chatbot_df)
                     except Exception as e:
                         st.error(f"An error occurred: {str(e)}")
 
