@@ -39,7 +39,7 @@ def main():
 
         if selected_files:
             for selected_file in selected_files:
-                st.subheader(f"Viewing {os.path.basename(selected_file)}")
+                # st.subheader(f"Viewing {os.path.basename(selected_file)}")
 
                 openai_api_key = st.secrets["OPENAI_API_KEY"]
                 agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=openai_api_key)
