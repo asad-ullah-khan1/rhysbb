@@ -41,7 +41,7 @@ def main():
             for selected_file in selected_files:
                 st.subheader(f"Viewing {os.path.basename(selected_file)}")
 
-                agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True)
+                agent = create_csv_agent(OpenAI(temperature=0), selected_file, verbose=True, openai_api_key=st.secrets.OPENAI_API_KEY)
 
                 user_question = st.text_input("Ask a question about your CSV: ")
 
